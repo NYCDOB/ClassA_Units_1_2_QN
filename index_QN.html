@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html>
+  <title>Class A Units 1-2 Built Prior to 1940 With NA HPD Classification: Queens</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+  <link rel="icon" type="image/png" href="https://github.com/NYCDOB/EssentialActiveConstruction/blob/gh-pages/images/logo.png">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css' rel='stylesheet' type='text/css'/>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/rowgroup/1.1.1/css/rowGroup.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.12/r-2.1.0/se-1.2.0/datatables.min.css">
+  <style>
+.dataTables_wrapper .dataTables_processing {
+  background: white;
+  color: #0000ff !important;
+  font-size: 24px;
+  border: 1px solid #28387c !important;
+  border-radius: 3px;
+  height: 75px !important;
+}
+
+
+.tooltipheading{
+color:yellow;
+font-size:18px;
+text-align:center;
+text-decoration: underline overline yellow;
+display:block;
+}
+.filterTableButton {
+	margin-right:5px;
+}
+#riskTable_info{
+	font-weight:bolder !important;
+}
+.row{
+	padding-top: 50px;
+}
+body {
+	background-color: white;
+}
+.jobno{
+	margin-left: 20px;
+}
+#map {
+	height: 100%;
+	width: 100%;
+	background-color: #333;
+	pointer-events: all;
+}
+#table-container{
+	height: 890px;
+	width: 100%;
+	display: block;
+	background-color: white;
+}
+#img{
+	float: left;
+	height: 35px;
+	margin-left: 10px;
+	padding-right: 10px;
+}
+
+.zoomedPoint {
+	stroke-width:1px !important;
+	stroke:red !important;
+	fill: red !important;
+	border: 1px double red !important;
+	background-color: red !important;
+	fill-opacity: 1;
+	r: 2 !important;
+}
+.eMbl2 i{
+cursor:pointer;
+font-size:18px;
+margin-left:-5px;margin-top:-5px;
+}
+* [class*='Cat'] :not(circle){
+	color:white !important;
+	font-weight: 900 !important;
+	font-size:1.5em !important;
+	border:solid grey 1px;
+	text-align: center;
+}
+#riskTable{
+	height: 100%;
+	font-size: 11px;
+}
+th { font-size: 12px; }
+td.details-control {
+	background: url('https://datatables.net/examples/resources/details_open.png') no-repeat center center;
+}
+tr.shown td.details-control {
+	background: url('https://datatables.net/examples/resources/details_close.png') no-repeat center center;
+}
+tr[role="row"]:hover td {
+	background-color: #e8e8e8;
+	cursor: pointer;
+}
+.logo{
+	background-image: url('https://nycdob.github.io/EssentialActiveConstruction/images/dob_logo_white.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	float: right;
+	background-size: 70px;
+	height: 50px;
+	width: 70px;	
+}
+
+.point{
+	fill: #f2ac0a;
+	fill-opacity: .7;
+}
+
+.tooltip {
+	color: #222;
+	background: #fff;
+	padding: .5em;
+	text-shadow: #f5f5f5 0 1px 0;
+	border-radius: 7px; 
+	box-shadow: 0px 0px 2px 0px #a6a6a6; 
+	opacity: 0.9; 
+	position: absolute;
+	visibility: hidden;
+}
+.dataTables_empty {
+  display:none;
+}
+.asofDate{
+	font-size:16px;
+}
+
+.dataTables_wrapper .dataTables_processing {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 50px;
+  background-color: #fff;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  margin-left: -100px;
+  margin-top: 100px;
+  text-align: center;
+  padding: 1em 0;
+  z-index: 1;
+}
+@media( max-width:1200px){
+	.dobmain	{
+		padding-top:50px;
+	}
+	.ui{
+		visibility:hidden;
+	}
+
+}
+.navbar-nav>li>a:hover{
+	background-color:#cccccc;
+}
+
+
+.ui{
+	top: 10px;
+	left: 50px;
+	padding: 4px;
+	position: absolute;
+	background-color: #fff;
+	border: 2px solid #707070;
+	border-radius: 7px;
+	width: 300px;
+}
+.dataTables_filter input { width: 150px }
+#loadpage{
+	margin: auto;
+	padding-top: 150px;
+}
+
+</style>
+<body>
+<div class="container">
+			<div class="navbar navbar-fixed-top" role="navigation" style="color:white;background-color:RGB(40,56,124);">
+			<a class="logo" href="https://www1.nyc.gov/site/buildings/about/covid-19-response.page" target="_blank"> </a>
+				<div class="nav navbar-nav" style="margin-left:15px;margin-top: 5px;font-size:28px;font-weight:bold;text-align:center;">
+					Class A Units 1-2 Built Prior to 1940 With N/A HPD Classification: Queens
+				</div>
+			</div>
+</div>
+<div class="container-fluid dobmain" style="margin-top:20px;">
+	<div class="row">
+		  <div class="col-lg-9" style="height:89vh">
+			  <div class="chart-stage" id="map-container" style="border:1px solid black;height:100%;width:100%">
+				<div id="map">
+				</div>
+			  </div>
+		  </div>
+			  <div class="col-lg-3" style="height:49vh">
+				<div class="newchart" style="padding:5px 5px 0px 5px;border:1px solid black;height:100%;width:100%">
+				  <div class="" id="">
+				  
+					<div id="loadpage" style="position:absolute; 
+						left:0px; top:0px; background-color:white; 
+						layer-background-color:white; height:100%; 
+						width:100%;"> 
+						  <p align="center" style="font-size: large;">       
+							<B>Loading ... Please wait!</B><br/><br/>
+							<img src="spinner.gif">
+						  </p>
+					</div>
+				  
+				  
+				  
+					<table id="riskTable" class="">
+						<thead>
+							<tr>
+								<th></th>
+								<th>HOUSE NUMBER</th>
+								<th>STREET</th>
+								<th>BOROUGH</th>
+								<th>BIN</th>
+								<th>CB</th>
+								<th>BLOCK</th>
+								<th>LOT</th>
+								<th>DOF CLASS</th>
+								<th>CLASS DESCRIPTION</th>
+								<th>HPD CLASS</th>
+								<th>CITY OWNED</th>
+								<th>LANDMARK</th>
+								<th>SRO</th>
+								<th>DOF STORIES</th>
+								<th>BIN RETIRED</th>
+								<th>YEAR BUILT (PLUTO)</th>
+								<th>BUILT CODE</th>
+								<th>ZONING MAP</th>
+								<th>DATASET</th>
+								<th>C OF O AVAILABLE</th>
+								<th>ROOF HEIGHT (DOiTT)</th>
+								<th>CLASS A UNITS</th>
+								<th>FEU JOBS (SINCE 2018)</th>
+								<th>WAS EVER UB</th>
+								<th>YEAR - LPC</th>
+								<th>YEAR ACTION (MN/BX/BK)</th>
+								<th>RECONCILED DATES</th>
+								<th>DATE SOURCE</th>
+							</tr>
+						</thead>			
+					</table>
+				  </div>
+				</div>
+			  </div>
+			  
+			<div class="zrow">
+				<div class="col-lg-3" style="height:37vh; margin-top:15px;zzzborder:1px solid black;">
+					<div id="cycloText" style="font-size:12px; font-weight:bold;">CLICK ON A MAP POINT TO VIEW CYCLOMEDIA IMAGE BELOW</div>						
+						<iframe id="cyclo" style="height:93%;width:100%;border:1px solid black;"></iframe>
+				</div>
+			</div>
+			  			  
+	</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.9/d3.min.js"></script>
+<script src="Leaflet.D3SvgOverlay-master/L.D3SvgOverlay.min.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/v/dt/dt-1.10.12/r-2.1.0/se-1.2.0/datatables.min.js"  type="text/javascript" charset="utf8" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.6/nv.d3.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/rowgroup/1.1.1/js/dataTables.rowGroup.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.20/api/fnSortNeutral.js"></script>
+<script>
+
+$(document).ready(function(){
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1;
+	var yyyy = today.getFullYear();
+	today = mm + '/' + dd + '/' + yyyy;	
+	d3.select("#today").html(today);
+	var latlong = [];
+	var xy = [];
+	var addressText = [];
+	var selection = [];
+	var cycloProperty;
+    L.Control.include({
+      _refocusOnMap: L.Util.falseFn // Do nothing.
+    });	
+
+	
+
+function cycloCoordinates(xy){
+	cycloProperty = "https://nycdob.github.io/CycloMedia/simple#" + xy;
+	var iframeElement = document.getElementById("cyclo");
+	iframeElement.src = "about:blank";
+	iframeElement.contentWindow.document.open();
+	iframeElement.contentWindow.document.write(cycloProperty);
+	iframeElement.contentWindow.document.close();
+	iframeElement.setAttribute("src", cycloProperty);
+	
+}
+
+function propertyText(text){
+	document.getElementById("cycloText").innerHTML = text;
+}
+
+var map = L.map('map').setView([40.71836920690928, -73.80943526674864], 15);
+L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png', {attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
+<!-- L.tileLayer('http://{s}.sm.mapstack.stamen.com/(toner-lite,$fff[difference],$fff[@23],$fff[hsl-saturation@20])/{z}/{x}/{y}.png', {attribution: '© <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'}).addTo(map); -->
+var tooltip = d3.select('#map').append('div')//var tooltip = d3.select('body').append('div')
+	.on('mouseover', function(d, i){
+		tooltip.transition().duration(0);
+	})
+	.on('mouseout', function(d, i){
+		tooltip.transition().delay(500).style('visibility', 'hidden');
+	})
+	.attr('class', 'tooltip');
+var width = $("#map").width(),
+	height = $("#map").height(),
+	points = [],
+	table_map = [],
+	filteredData,
+	latLngs = [];	
+	var pointsOverlay = L.d3SvgOverlay(function(sel,proj){
+	var pointsUpd = sel.selectAll('circle').data(points);	
+	pointsUpd.enter()
+		.append('circle')		
+		.attr("bin",function(d){return d.BIN})
+		.attr('cx',function(d){return proj.latLngToLayerPoint(d.latLng).x;})
+		.attr('cy',function(d){return proj.latLngToLayerPoint(d.latLng).y;})
+		//.attr('class', function(d){	return doClassName(d.Category)})
+		.attr('class', function(d){
+			return "point";
+		})
+		.on('click', function(d){
+		
+			if(d3.select(this).style("fill-opacity") != 0){
+				tooltip.style("visibility", "visible");
+				tooltip.html(
+					'BIN (BIS Link): ' + '<a href= "http://dob-bisweb.buildings.nycnet/bisweb-intra/PropertyProfileOverviewServlet?bin=' + d.BIN + '&go4=+GO+&requestid=0" target="_blank">' + d.BIN + '</a>' + '</br>' +							
+					'CycloMedia: ' + '<a href="' + [d.CycloMedia] + '" target="_blank">Full Page Image</a>' + '</br>' +
+					'House Number: ' + [d.HouseNum] + '</br>' +
+					'Street: ' + [d.Street] + '</br>' +
+					'Boro: ' + [d.Boro] + '</br>' +
+					'CB: ' + [d.CB] + '</br>' +
+					'Block: '+ [d.Block] + '</br>' +
+					'Lot: ' + [d.Lot] + '</br>' +
+					'DOF Classification: ' + [d.DOF_Class] + ': ' + [d.ClassDesc] + '</br>' +
+					'HPD Classification: ' + [d.HPD_Class] + '</br>' +
+					'City Owned: ' + [d.CityOwned] + '</br>' +
+					'Landmark: ' + [d.Landmark] + '</br>' +
+					'SRO: ' + [d.SRO] + '</br>' +
+					'DOF Stories: ' + [d.DOF_Stories] + '</br>' +
+					'BIN Retired: ' + [d.BIN_Retired] + '</br>' +
+					'Year Built (PLUTO): ' + [d.YearBuilt] + '</br>' +
+					'BuiltCode: ' + [d.BuiltCode] + '</br>' +
+					'Zoning Map: ' + [d.ZoningMap] + '</br>' +
+					'DataSet: ' + [d.DataSet] + '</br>' +
+					'C of O Available: ' + [d.CO_Available] + '</br>' +
+					'Roof Height (DoITT Footprints): ' + [d.RoofHeight] + '</br>' +
+					'Class A Units: ' + [d.ClassA_Units] + '</br>' +
+					'FEU Jobs (Since 2018): ' + [d.FEU_Jobs_2018] + '</br>' +
+					'Was Ever a UB?: ' + [d.Was_UB] + '</br>' +
+					'Year - LPC: ' + [d.Year_LPC] + '</br>' +
+					'Year Action (MN/BX/BK): ' + [d.YearAction_MN_BX_BK] + '</br>' +
+					'Year Action (MN/BX/BK): ' + [d.YearAction_MN_BX_BK] + '</br>' +
+					'Reconciled Dates: ' + [d.ReconciledDates] + '</br>' +
+					'Date Source: ' + [d.DATE_SOURCE]
+					
+				)
+				if (d3.event.pageX > (width - 200)) {
+				   tooltip.style("left", (d3.event.pageX - 350) + "px");
+				} else {
+				   tooltip.style("left", (d3.event.pageX + 20) + "px")
+						.style("top", (d3.event.pageY -30) + "px");
+				}
+				if (d3.event.pageY > (height - 150)) {
+				   tooltip.style("top", (d3.event.pageY -100) + "px");
+				} else {
+				   tooltip.style("top", (d3.event.pageY -30) + "px");
+				}
+			}
+			
+			addressText = [[d.HouseNum] + ' ' + [d.Street] + ', ' + [d.Boro]];
+			propertyText(addressText);
+			xy = [+d.X,+d.Y];
+			cycloCoordinates(xy);	
+			
+		})
+		.on("mouseover", function(d, i){
+			tooltip.transition().duration(0); 
+			$(this).attr("style", "cursor: pointer; fill: #eef442; fill-opacity: 1;");			
+		})
+		.on("mouseout", function(d, i){			
+			$(this).attr("style", "stroke-width: 0px; fill-opacity: .7;");
+			return tooltip.transition().delay(500).style("visibility", "hidden");
+		});
+		pointsUpd.attr('r', 5 / proj.scale);
+		
+
+	});
+	//d3.csv("https://raw.githubusercontent.com/NYCDOB/LL104/gh-pages/data/LL04_properties.csv",function(data){
+	d3.csv("data/ClassA_Units_1_2_QN.csv",function(data){
+				points = data.map(function(d){
+				d.latLng = [+d.Lat,+d.Long];
+				d.xy = [+d.X,+d.Y];
+				d.bin = [d.BIN];				
+				d.HouseNum = [d.HouseNum];
+				d.Street = [d.Street];
+				d.CB = [d.CB];
+				d.Boro = [d.Boro];
+				d.Block = [d.Block];
+				d.Lot = [d.Lot];
+				d.DOF_Class = [d.DOF_Class];
+				d.ClassDesc = [d.ClassDesc];
+				d.HPD_Class = [d.HPD_Class];
+				d.CityOwned = [d.CityOwned];
+				d.Landmark = [d.Landmark];
+				d.SRO = [d.SRO];
+				d.DOF_Stories = [d.DOF_Stories];
+				d.BIN_Retired = [d.BIN_Retired];
+				d.YearBuilt = [d.YearBuilt];
+				d.BuiltCode = [d.BuiltCode];
+				d.ZoningMap = [d.ZoningMap];
+				d.DataSet = [d.DataSet];
+				d.CO_Available = [d.CO_Available];
+				d.RoofHeight = [d.RoofHeight];
+				d.ClassA_Units = [d.ClassA_Units];
+				d.FEU_Jobs_2018 = [d.FEU_Jobs_2018];
+				d.Was_UB = [d.Was_UB];
+				d.Year_LPC = [d.Year_LPC];
+				d.YearAction_MN_BX_BK = [d.YearAction_MN_BX_BK];
+				d.ClassA_Units = [d.ClassA_Units];
+				d.ReconciledDates = [d.ReconciledDates];
+				d.DATE_SOURCE = [d.DATE_SOURCE];			
+				d.CycloMedia = [d.CycloMedia];
+			return d;
+			});
+		pointsOverlay.addTo(map);
+		
+	});
+	
+
+	
+	function highlightPoint(layerID){
+		console.log(layerID);
+		d3.selectAll(".point")
+			.style("fill-opacity", function(d){
+				if(d.BIN == layerID){return "0.7"}
+				else{return "0"};
+			})
+	}
+	function zoomToSelected(latlong){
+			map.setView(latlong,17);
+	}	
+	
+
+	function zoomFullExtent(){
+		map.setView([40.713312, -73.977407], 14);
+		var u2=document.querySelector(".zoomedPoint");
+		if (u2) {
+			u2.className.baseVal = u2.className.baseVal.replace(/\bzoomedPoint\b/g, "");
+		}
+	}
+	map.on('resize', function(){
+		map.invalidateSize();		
+	});
+	
+		
+	function format ( d ) {
+		return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+			'<tr>'+
+				'<td>BIN (BIS Link):</td>'+
+				'<td>'+'<a href= "http://dob-bisweb.buildings.nycnet/bisweb-intra/PropertyProfileOverviewServlet?bin=' + d.BIN + '&go4=+GO+&requestid=0" target="_blank">' + d.BIN + '</a>'+'</td>'+
+			'</tr>'+
+			'<tr>'+
+				'<td>CycloMedia:</td>'+
+				'<td>'+'<a href="' + [d.CycloMedia] + '" target="_blank">Full Page Image</a>'+'</td>'+
+			'</tr>'+
+			'<tr>'+
+				'<td>Community District:</td>'+
+				'<td>'+[d.CB]+'</td>'+
+			'</tr>'+
+			'<tr>'+
+				'<td>Block:</td>'+
+				'<td>'+[d.Block]+'</td>'+
+			'</tr>'+
+
+			'<tr>'+
+				'<td>Lot:</td>'+
+				'<td>'+[d.Lot]+'</td>'+
+			'</tr>'+
+			'<tr>'+
+				'<td>DOF Class:</td>'+
+				'<td>'+[d.DOF_Class]+'</td>'+
+			'</tr>'+
+			'<tr>'+
+				'<td>Class Description:</td>'+
+				'<td>'+[d.ClassDesc]+'</td>'+
+			'</tr>'+
+			'<tr>'+
+				'<td>HPD Class:</td>'+
+				'<td>'+[d.HPD_Class]+'</td>'+
+			'</tr>'+
+			'<tr>'+
+				'<td>City Owned:</td>'+
+				'<td>'+[d.CityOwned]+'</td>'+
+			'</tr>'+
+			'<tr>'+
+				'<td>Landmark:</td>'+
+				'<td>'+[d.Landmark]+'</td>'+
+			'</tr>'+
+			'<tr>'+
+				'<td>SRO:</td>'+
+				'<td>'+[d.SRO]+'</td>'+
+			'</tr>'+
+			'<tr>'+
+				'<td>DOF Stories:</td>'+
+				'<td>'+[d.DOF_Stories]+'</td>'+
+			'</tr>'+
+			'<tr>'+
+				'<td>BIN Retired:</td>'+
+				'<td>'+[d.BIN_Retired]+'</td>'+
+			'</tr>'+
+			'<tr>'+
+				'<td>Year Built (PLUTO):</td>'+
+				'<td>'+[d.YearBuilt]+'</td>'+
+			'</tr>'+	
+			'<tr>'+
+				'<td>Built Code:</td>'+
+				'<td>'+[d.BuiltCode]+'</td>'+
+			'</tr>'+		
+			'<tr>'+
+				'<td>Zoning Map:</td>'+
+				'<td>'+[d.ZoningMap]+'</td>'+
+			'</tr>'+		
+			'<tr>'+
+				'<td>DataSet:</td>'+
+				'<td>'+[d.DataSet]+'</td>'+
+			'</tr>'+	
+			'<tr>'+
+				'<td>C of O Available:</td>'+
+				'<td>'+[d.CO_Available]+'</td>'+
+			'</tr>'+		
+			'<tr>'+
+				'<td>Roof Height (DoITT Footprints):</td>'+
+				'<td>'+[d.RoofHeight]+'</td>'+
+			'</tr>'+			
+			'<tr>'+
+				'<td>Class A Units:</td>'+
+				'<td>'+[d.ClassA_Units]+'</td>'+
+			'</tr>'+
+			'<tr>'+
+				'<td>FEU Jobs (Since 2018):</td>'+
+				'<td>'+[d.FEU_Jobs_2018]+'</td>'+
+			'</tr>'+
+			'<tr>'+
+				'<td>Was Ever UB?:</td>'+
+				'<td>'+[d.Was_UB]+'</td>'+
+			'</tr>'+
+			'<tr>'+
+				'<td>Year - LPC:</td>'+
+				'<td>'+[d.Year_LPC]+'</td>'+
+			'</tr>'+
+			'<tr>'+
+				'<td>Year Action (MN/BX/BK):</td>'+
+				'<td>'+[d.YearAction_MN_BX_BK]+'</td>'+
+			'</tr>'+
+			'<tr>'+
+				'<td>Reconciled Dates:</td>'+
+				'<td>'+[d.ReconciledDates]+'</td>'+
+			'</tr>'+
+			'<tr>'+
+				'<td>Date Source:</td>'+
+				'<td>'+[d.DATE_SOURCE]+'</td>'+
+			'</tr>'+
+
+			
+		'</table>';
+	}	
+	function zoom(lat,lon){
+		map.panTo(new L.LatLng(lat,lon));
+	}
+	
+	$(function(){
+		var table = $('#riskTable').DataTable({
+
+				"ajax": {
+					//"url": "https://raw.githubusercontent.com/NYCDOB/LL04/gh-pages/data/LL104_properties.json",
+					"url": "data/ClassA_Units_1_2_QN.json",
+					"dataSrc": ""
+				},
+				order: [[3, "asc"], [1, "asc"], [2, "asc"]],
+				lengthChange: false,
+				//"scrollY": "70vh",
+				"scrollY": "38vh",
+				"scrollCollapse": true,
+				"paging": false,
+
+				columns: [
+					{
+						"className": 'details-control',
+						"orderable": false,
+						"data": null,
+						"defaultContent": ''
+					},
+					{	data: "HouseNum"
+					},
+					{	data: "Street"
+					},
+					{ 	data: "Boro"
+					},
+					{	data:"BIN", "visible":false
+					},
+					{	data:"CB", "visible":false
+					},
+					{	data:"Block", "visible":false
+					},
+					{	data:"Lot", "visible":false
+					},
+					{	data:"DOF_Class", "visible":false
+					},
+					{	data:"ClassDesc", "visible":false
+					},
+					{	data:"HPD_Class", "visible":false
+					},
+					{	data:"CityOwned", "visible":false
+					},
+					{	data:"Landmark", "visible":false
+					},
+					{	data:"SRO", "visible":false
+					},
+					{	data:"DOF_Stories", "visible":false
+					},
+					{	data:"BIN_Retired", "visible":false
+					},
+					{	data:"YearBuilt", "visible":false
+					},
+					{	data:"BuiltCode", "visible":false
+					},
+					{	data:"ZoningMap", "visible":false
+					},
+					{	data:"DataSet", "visible":false
+					},
+					{	data:"CO_Available", "visible":false
+					},			
+					{	data:"RoofHeight", "visible":false
+					},
+					{	data:"ClassA_Units", "visible":false
+					},					
+					{	data:"FEU_Jobs_2018", "visible":false
+					},		
+					{	data:"Was_UB", "visible":false
+					},			
+					{	data:"Year_LPC", "visible":false
+					},			
+					{	data:"YearAction_MN_BX_BK", "visible":false
+					},					
+					{	data:"ReconciledDates", "visible":false
+					},
+					{	data:"DATE_SOURCE", "visible":false
+					}
+				],
+				
+				//"dom": 'fBrtip',
+				"dom": 'fBrt',
+				"buttons": [		   
+					{ extend: 'csv',
+					titleAttr: 'Download to CSV',
+					filename: "ClassA_Units_1_2_Prior1940_HPDClassNA",
+					className: "filterTableButton",
+					text: '<i class="fa fa-download" aria-hidden="true"></i>',
+					exportOptions: {modifier: {search: 'none'},columns: 'th:not(:first-child)'}}
+					
+					
+				]
+
+				
+			});
+		
+		$('#riskTable tbody').on( 'click', 'tr', function () {
+			if ( $(this).hasClass('selected') ) {
+				$(this).removeClass('selected');			
+			d3.selectAll('.point')
+				.style("fill-opacity", function(d){
+					return "0.7";
+				});	
+			zoomFullExtent();
+			}
+			else {
+				table.$('tr.selected').removeClass('selected');
+				$(this).addClass('selected');
+				
+			for (var i=0; i < table.rows('.selected').data().length; i++){
+				<!-- var selectedRecord = table.rows('.selected').data()[i].Address; -->
+				var selectedRecord = table.rows('.selected').data()[i].BIN;
+				var lat = table.rows('.selected').data()[i].Lat;
+				var lon = table.rows('.selected').data()[i].Long;
+				latlong = [lat,lon];
+				console.log(selectedRecord);
+				<!-- var xCoord = table.rows('.selected').data()[i].X; -->
+				<!-- var yCoord = table.rows('.selected').data()[i].Y; -->
+				<!-- var xyCoord = [xCoord,yCoord]; -->
+				<!-- var addr = table.rows('.selected').data()[i].HouseNum; -->
+				<!-- var str = table.rows('.selected').data()[i].Street; -->
+				<!-- var boro = table.rows('.selected').data()[i].Boro; -->
+				<!-- var addressTxt = [addr +' '+ str +', '+ boro] -->
+				}
+				highlightPoint(selectedRecord);	
+				zoomToSelected(latlong);
+				//cycloCoordinates(xyCoord);
+				//propertyText(addressTxt);
+				
+			}
+		});
+
+				
+		// Add event listener for opening and closing details
+		$('#riskTable tbody').on('click', 'td.details-control', function () {
+			var tr = $(this).closest('tr');
+			var row = table.row( tr );
+			if ( row.child.isShown() ) {
+				// This row is already open - close it
+				row.child.hide();
+				tr.removeClass('shown');
+			}
+			else {
+				// Open this row
+				row.child( format(row.data()) ).show();
+				tr.addClass('shown');
+			}
+		});
+	});	
+	
+
+	
+});	
+</script>
+</body>
+</html>
